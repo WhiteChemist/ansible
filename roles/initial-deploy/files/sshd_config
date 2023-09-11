@@ -1,0 +1,4 @@
+Banner /etc/issue.net
+Port 22
+PermitRootLogin no
+PubkeyAuthentication yes

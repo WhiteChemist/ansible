@@ -1,0 +1,59 @@
+---
+- name: Update packages
+  apt:
+    update_cache: yes
+
+- name: Upgrade packages
+  apt:
+    name: "*"
+    state: latest
+
+- name: Install utilities
+  apt:
+    pkg:
+      - net-tools
+      - htop
+      - ntp
+      - man
+    install-recommends: false
+
+- name: Install ssh server
+  apt:
+    name: openssh-server
+    state: latest
+
+- name: Replace motd banner
+  template:
+    src: ../templates/banner.j2
+    dest: /etc/motd
+
+- name: Replace issue banner
+  template:
+    src: ../templates/banner.j2
+    dest: /etc/issue.net
+
+- name: Configuring ssh server
+  copy:
+    src: sshd_config
+    dest: /etc/ssh/sshd_config
+    owner: root
+    group: root
+
+
+- name: Restart ssh server
+  service: 
+    name: sshd
+    state: restarted
+
+- name: Configure ntp
+  template:
+    src: ../templates/ntp.conf.j2
+    dest: /etc/ntp.conf
+
+- name: Enable ntp
+  service:
+    name: ntp
+    state: started
+    enabled: yes
+
+

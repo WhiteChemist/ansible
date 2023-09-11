@@ -1,0 +1,7 @@
+---
+- name: Start init server
+  hosts: all
+  become: true
+  roles:
+    - initial-deploy
+
