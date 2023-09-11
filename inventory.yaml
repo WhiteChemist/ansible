@@ -1,2 +1,3 @@
 localservers:
-  vm-0: <ip>
+  vm-0:
+    ansible_host: 127.0.0.1
