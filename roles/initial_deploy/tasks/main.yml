@@ -1,15 +1,15 @@
 ---
 - name: Update packages
-  apt:
-    update_cache: yes
+  ansible.builtin.apt:
+    update_cache: true
 
 - name: Upgrade packages
-  apt:
+  ansible.builtin.apt:
     name: "*"
     state: latest
 
 - name: Install utilities
-  apt:
+  ansible.builtin.apt:
     pkg:
       - net-tools
       - htop
@@ -18,42 +18,45 @@
     install-recommends: false
 
 - name: Install ssh server
-  apt:
+  ansible.builtin.apt:
     name: openssh-server
     state: latest
 
 - name: Replace motd banner
-  template:
-    src: ../templates/banner.j2
+  ansible.builtin.template:
+    src: /templates/banner.j2
     dest: /etc/motd
+    owner: root
+    group: root
 
 - name: Replace issue banner
-  template:
+  ansible.builtin.template:
     src: ../templates/banner.j2
     dest: /etc/issue.net
+    owner: root
+    group: root
 
 - name: Configuring ssh server
-  copy:
+  ansible.builtin.copy:
     src: sshd_config
     dest: /etc/ssh/sshd_config
     owner: root
     group: root
 
-
 - name: Restart ssh server
-  service: 
+  ansible.builtin.service: 
     name: sshd
     state: restarted
 
 - name: Configure ntp
-  template:
+  ansible.builtin.template:
     src: ../templates/ntp.conf.j2
     dest: /etc/ntp.conf
-
+    owner: root
+    group: root
+    
 - name: Enable ntp
-  service:
+  ansible.builtin.service:
     name: ntp
     state: started
-    enabled: yes
-
-
+    enabled: true

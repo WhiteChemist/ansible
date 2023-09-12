@@ -1,4 +1,2 @@
 ---
-ntp_server_0: ntp0.ntp-servers.net
-ntp_server_1: ntp1.ntp-servers.net
 ansible_become: yes

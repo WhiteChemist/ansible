@@ -3,5 +3,4 @@
   hosts: all
   become: true
   roles:
-    - initial-deploy
-
+    - initial_deploy
